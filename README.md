@@ -1,73 +1,85 @@
 # Bori Bot
 
-Bori Bot es un chatbot simple desarrollado con LangChain y OpenAI GPT-3.5 Turbo. Cuenta con una interfaz de usuario moderna construida con Next.js y shadcn/ui, y un backend potente con FastAPI y LangChain.
+Bori Bot is a simple chatbot developed with LangChain and OpenAI GPT-3.5 Turbo. It features a modern user interface built with Next.js and shadcn/ui, and a powerful backend with FastAPI and LangChain.
 
-## Estructura del Proyecto
+## Project Structure
 
-El proyecto está dividido en dos partes principales:
+The project is divided into two main parts:
 
-- **frontend**: Interfaz de usuario construida con Next.js y shadcn/ui
-- **backend**: API construida con FastAPI y LangChain
+- **frontend**: User interface built with Next.js and shadcn/ui
+- **backend**: API built with FastAPI and LangChain
 
-## Características
+## Features
 
-- Chatbot en tiempo real con WebSockets
-- Mantiene el contexto de la conversación
-- Interfaz de usuario moderna y responsiva
-- Animaciones de escritura
-- Indicador de estado de conexión
-- Personalizable a través de prompts del sistema
+- Real-time chat
+- Message persistence in the browser
+- Modern and responsive user interface
+- Loading and typing animations
+- Customizable through system prompts
 
-## Configuración
+## Setup
 
 ### Backend
 
-1. Navega al directorio del backend:
+1. Navigate to the backend directory:
 ```bash
 cd backend
 ```
 
-2. Instala las dependencias:
+2. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Configura tu archivo `.env` con tu clave API de OpenAI:
+3. Configure your `.env` file with your OpenAI API key:
 ```
 OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-4. Inicia el servidor:
+4. Start the server:
 ```bash
 python main.py
 ```
 
-El servidor se iniciará en http://localhost:8000
+The server will start at http://localhost:8000
 
 ### Frontend
 
-1. Navega al directorio del frontend:
+1. Navigate to the frontend directory:
 ```bash
 cd frontend
 ```
 
-2. Instala las dependencias:
+2. Install dependencies:
 ```bash
 npm install
-npm install uuid @types/uuid
 ```
 
-3. Inicia el servidor de desarrollo:
+3. Start the development server:
 ```bash
 npm run dev
 ```
 
-El frontend se iniciará en http://localhost:3000
+The application will be available at http://localhost:3000
 
-## Personalización
+## Customization
 
-Puedes personalizar el comportamiento del chatbot modificando el archivo `backend/prompts.py`. Este archivo contiene el prompt del sistema que define cómo debe comportarse el chatbot.
+You can customize the chatbot's behavior by modifying the `backend/prompts.py` file. This file contains the system prompt that defines how the chatbot should behave.
 
-## Desarrollado por
+## Technologies Used
+
+- **Frontend**:
+  - Next.js 14
+  - TypeScript
+  - Tailwind CSS
+  - shadcn/ui
+  - Lucide Icons
+
+- **Backend**:
+  - FastAPI
+  - LangChain
+  - OpenAI GPT-4o-mini
+
+## Developed by
 
 Walter Romero 
