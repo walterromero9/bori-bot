@@ -7,17 +7,15 @@ from app.services.llm import create_llm, create_prompt
 from datetime import datetime, timedelta
 import logging
 
-# Configuración de logging
 logger = logging.getLogger(__name__)
 
-# Estructura para almacenar conversaciones con metadatos
 conversation_store = {}
-MAX_CONVERSATIONS = 1000  # Límite de conversaciones en memoria
-CONVERSATION_TIMEOUT = timedelta(hours=24)  # Tiempo de expiración
+MAX_CONVERSATIONS = 1000  
+CONVERSATION_TIMEOUT = timedelta(hours=24) 
 
 def cleanup_old_conversations():
     """
-    Limpia conversaciones antiguas para evitar fugas de memoria
+    Clean old conversations to avoid memory leaks
     """
     current_time = datetime.now()
     expired_ids = []
@@ -29,27 +27,25 @@ def cleanup_old_conversations():
     for conv_id in expired_ids:
         del conversation_store[conv_id]
         
-    logger.info(f"Limpieza de memoria: {len(expired_ids)} conversaciones eliminadas")
+    logger.info(f"Memory cleanup: {len(expired_ids)} conversations removed")
     
-    # Si aún hay demasiadas conversaciones, eliminar las más antiguas
     if len(conversation_store) > MAX_CONVERSATIONS:
         sorted_convs = sorted(conversation_store.items(), 
                              key=lambda x: x[1]["last_access"])
         
-        # Eliminar el 20% más antiguo
         to_remove = sorted_convs[:int(MAX_CONVERSATIONS * 0.2)]
         for conv_id, _ in to_remove:
             del conversation_store[conv_id]
         
-        logger.info(f"Limpieza adicional: {len(to_remove)} conversaciones eliminadas por límite de memoria")
+        logger.info(f"Additional cleanup: {len(to_remove)} conversations removed due to memory limit")
 
 
 def get_conversation(conversation_id: str):
     """
     Get or create a conversation chain for a client
     """
-    # Ejecutar limpieza periódica
-    if len(conversation_store) % 10 == 0:  # Cada 10 conversaciones nuevas
+
+    if len(conversation_store) % 10 == 0:  
         cleanup_old_conversations()
         
     current_time = datetime.now()
@@ -72,7 +68,6 @@ def get_conversation(conversation_id: str):
             "last_access": current_time
         }
     else:
-        # Actualizar timestamp de último acceso
         conversation_store[conversation_id]["last_access"] = current_time
     
     return conversation_store[conversation_id]["conversation"]
@@ -87,5 +82,5 @@ def process_message(message: str, conversation_id: str) -> str:
         response = conversation.predict(input=message)
         return response
     except Exception as e:
-        logger.error(f"Error procesando mensaje: {str(e)}")
-        return "Lo siento, ocurrió un error al procesar tu mensaje. Por favor, intenta de nuevo." 
+        logger.error(f"Error processing message: {str(e)}")
+        return "Sorry, an error occurred while processing your message. Please try again." 
